@@ -1,0 +1,52 @@
+// font-size
+// scale: 1.25
+$f1: 5.96rem;
+$f2: 4.768rem;
+$f3: 3.815rem;
+$f4: 3.052rem;
+$f5: 2.441rem;
+$f6: 1.953rem;
+$f7: 1.563rem;
+$f8: 1.25rem;
+$f9: 1rem;
+$f10: .8rem;
+$f11: .64rem;
+$f12: .512rem;
+
+// break point
+$bp-sp: 450; // unit: px
+$bp-tablet: 768; // unit: px
+$bp-pc: 1140; // unit: px
+
+// media query
+$mq-sp: "screen and (min-width: #{$bp-sp}px)";
+$mq-sp-plus: "screen and (min-width: #{$bp-sp + 20}px)";
+$mq-tablet: "screen and (min-width: #{$bp-tablet}px)";
+$mq-pc: "screen and (min-width: #{$bp-pc}px)";
+$mq-pc-plus1: "screen and (min-width: #{$bp-pc + 6}px)";
+$mq-pc-plus2: "screen and (min-width: #{$bp-pc + 20}px)";
+
+// color
+$c1: #22d3d3; // base-color
+$c2: grayscale($c1); // gray
+$c3: #ffb005; // main-color
+$c4: #7adc7a; // accent-color
+
+
+@mixin inputButton {
+  background-color: darken($c4, 0%);
+  border: 1px solid darken($c4, 30%);
+  color: darken($c4, 60%);
+  transition: all .15s ease-out 0s;
+
+  &:hover {
+    background-color: darken($c4, 18%);
+  }
+}
+
+@mixin clear-fix {
+  content: "";
+  display: block;
+  clear: both;
+}
+

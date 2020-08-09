@@ -1,0 +1,885 @@
+@charset "UTF-8";
+
+/* --------------------------------------------
+  Common
+-------------------------------------------- */
+
+@import "_variables.scss";
+
+
+/* font-size */
+html {
+  font-size: 16px;
+}
+
+h1 {
+  font-size: $f5;
+}
+h2 {
+  font-size: $f8;
+}
+h3 {
+  font-size: $f8;
+}
+
+input[type="button"] {
+  cursor: pointer;
+  @include inputButton;
+}
+button {
+  cursor: pointer;
+}
+
+.separate-bar {
+  border-top: 1px solid darken($c1,10%);
+  margin-top: 1em;
+}
+.card {
+  padding: .2em .5em;
+  border-radius: .3em;
+  margin-right: .1em;
+  word-break: break-all;
+  line-height: 1.2!important;
+}
+
+/* --------------------------------------------
+each part
+-------------------------------------------- */
+
+body {
+  background: #fff;
+}
+header {
+  width: 100%;
+  height: auto;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  padding: .3em 0 .7em;
+  background: rgba(255, 255, 255, .9);
+  border-bottom: 1px solid rgba(0, 0, 0, .1);
+
+  .logo {
+    font-weight: bold;
+    text-align: right;
+    letter-spacing: -4.3px;
+    color: $c1; //#d9fcfc; // 
+    padding-right: 10px;
+
+    @media #{$mq-sp-plus} {
+      padding-right: calc((100% - #{$bp-sp}px) / 4 + 10px);
+    }
+    @media #{$mq-pc-plus2} {
+      padding-right: calc((#{$bp-pc}px - #{$bp-sp}px) / 4 + (100% - #{$bp-pc}px) / 2 + 10px);
+    }
+  }
+}
+main {
+  width: 100%;
+  height: auto;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  padding: 0 10px;
+  margin-bottom: calc(.8em + 20px + 30px + env(safe-area-inset-bottom));
+
+  @media #{$mq-sp-plus} {
+    padding: 0 calc((100% - #{$bp-sp}px) / 2 + 10px);
+  }
+}
+footer {
+  width: 100%;
+  height: auto;
+  padding: 10px 0;
+  padding-bottom: calc(10px + env(safe-area-inset-bottom));
+  background: $c1;
+  background: linear-gradient(90deg, rgba(9,175,175,1) 0%, rgba(12,223,223,1) 70%, rgba(188,251,251,1) 100%);
+  position: fixed;
+  top: 100vh;
+  transform: translateY(-100%);
+  z-index: 10;
+
+  #copyright {
+    font-size: $f10;
+    text-align: center;
+    color: #fff;
+    letter-spacing: .4px;
+  }
+}
+
+#main-container {
+  width: 100%;
+  max-width: #{$bp-sp}px;
+  height: auto;
+}
+#mssContainer {
+  width: 100%;
+  height: auto;
+  background-color: lighten($c1, 40%);
+}
+#mss-message {
+  display: none;
+}
+.mssTabMenu-default {
+  width: 100%;
+  height: calc(100vh - (10px * 2 + 18px * 0.8)); // footerのheightを差し引いた値
+  position: relative;
+
+  #main-menu {
+
+    li {
+      width: 100%;
+      max-width: #{$bp-sp}px;
+      border: 1px solid $c1;
+      border-radius: 10px;
+      position: absolute;
+      top: 30%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      background-color: $c1;
+      transition: all .15s ease-out 0s;
+  
+      &:nth-of-type(2) {
+        margin-top: 5.5em;
+      }
+      &:hover {
+        background-color: $c3;
+        border-color:  $c3;
+      }
+  
+      a {
+        width: 100%;
+        height: 100%;
+        display: inline-block;
+        padding: .5em 0;
+        color: #fff;
+        font-size: $f6;
+        letter-spacing: 2px;
+      }
+    }
+  }
+
+  #mss-message {
+    display: block;
+    width: 100%;
+    max-width: #{$bp-sp}px;
+    border-top: 3px double $c1;
+    border-bottom: 3px double $c1;
+    position: absolute;
+    top: calc(30% + 11em);
+    left: 50%;
+    transform: translate(-50%, 0);
+    padding: 1em .5em;
+
+    p {
+      margin-bottom: 1em;
+      line-height: 1.4em;
+
+      span {
+        font-weight: bold;
+      }
+    }
+    p:last-of-type {
+      margin-bottom: 0;
+    } 
+  }
+
+  & + #mssContainer {
+    display: none;
+  }
+}
+
+.mssTabMenu-regist {
+  position: relative;
+
+  #main-menu {
+    padding-top: calc(1em + #{$f5} + .5em);
+    border-bottom: 1px solid lighten($c1, 40%);
+
+    li {
+      display: inline-block;
+      position: relative;
+      height: 100%;
+
+      &::before {
+        content: "";
+        display: block;
+        width: 100%;
+        height: 0;
+        background-color: transparent;
+        position: absolute;
+        top: 0;
+        left: 0;
+        border-right: .5em solid transparent;
+        border-radius: 5px 15px 0 0 / 5px 50% 0 0;
+      }
+
+      a {
+        font-size: $f9;
+        position: relative;
+        display: inline-block;
+        padding: .7em 2em .7em 1.5em; // タブの右側の傾斜の分だけpadding-rightを長く設定
+      }
+    }
+    #tab-regist {
+      z-index: 2;
+
+      &::before {
+        border-bottom: calc(1em + 0.7em * 2) solid lighten($c1, 40%); // 文字サイズ＋上下のpadding
+        z-index: 1;
+      }
+      
+      a {
+        z-index: 2;
+      }
+    }
+    #tab-search {
+      z-index: 1;
+      margin-left: -.3em;
+      
+      &::before {
+        border-bottom: calc(1em + 0.7em * 2) solid lighten($c1, 0%); // 文字サイズ＋上下のpadding
+        z-index: 1;
+      }
+      
+      a {
+        z-index: 2;
+      }
+    }
+  }
+}
+.mssTabMenu-search {
+  position: relative;
+
+  #main-menu {
+    padding-top: calc(1em + #{$f5} + .5em);
+    border-bottom: 1px solid lighten($c1, 40%);
+
+    li {
+      display: inline-block;
+      position: relative;
+      height: 100%;
+
+      &::before {
+        content: "";
+        display: block;
+        width: 100%;
+        height: 0;
+        background-color: transparent;
+        position: absolute;
+        top: 0;
+        left: 0;
+        border-right: .5em solid transparent;
+        border-radius: 5px 15px 0 0 / 5px 50% 0 0;
+      }
+    
+      a {
+        font-size: $f9;
+        position: relative;
+        display: inline-block;
+        padding: .7em 2em .7em 1.5em; // タブの右側の傾斜の分だけpadding-rightを長く設定
+      }
+    }
+    #tab-regist {
+      z-index: 1;
+
+      &::before {
+        border-bottom: calc(1em + 0.7em * 2) solid lighten($c1, 0%); // 文字サイズ＋上下のpadding
+        z-index: 1;
+      }
+      
+      a {
+        z-index: 2;
+      }
+    }
+    #tab-search {
+      z-index: 2;
+      margin-left: -.3em;
+      
+      &::before {
+        border-bottom: calc(1em + 0.7em * 2) solid lighten($c1, 40%); // 文字サイズ＋上下のpadding
+        z-index: 1;
+      }
+      
+      a {
+        z-index: 2;
+      }
+    }
+  }
+}
+
+#mssContainer {
+  display: block;
+  padding: 1em .5em 1em;
+
+  h2 {
+    border-bottom: 1px solid darken($c1,10%);
+    font-weight: normal;
+    padding: .1em .5em;
+
+    span {
+      font-size: $f9;
+    }
+  }
+  form {
+    margin-top: 1em;
+    padding: .5em;
+
+    ul li {
+      margin-top: .7em;
+      display: block;
+
+      input[type="text"] {
+        min-width: 1px;
+        height: calc(1em + 16px);
+      }
+      
+      .item-bold {
+        font-weight: bold;
+      }
+
+      span {
+        font-size: $f10;
+        font-weight: normal;
+      }
+
+      // note
+      textarea {
+        width: 100%;
+        height: 4.5em;
+        margin-top: .3em;
+      }
+
+      // url, keyword
+      &#regist-url, &#search-keyword {
+        button {
+          margin-top: .3em;
+          font-size: $f9;
+          cursor: pointer;
+
+          @include inputButton;
+        }
+      }
+      .regist-item-set, .search-item-set {
+        display: grid;
+        grid-template-columns: 1fr 4.3em/*3em*/;
+        margin-top: .3em;
+
+        input[type="url"], input[type="text"] {
+          min-width: 1em;
+          height: calc(1em + 16px);
+        }
+        input[type="button"] {
+          font-size: $f9;
+        }
+      }
+
+      // songName, songInit, compName, compInit
+      &.additional-info {
+        margin-top: .3em;
+      }
+      &:first-of-type {
+        margin-top: 0;
+      }
+
+      &.grid-container {
+        display: grid;
+        grid-template-columns: 5.2em 1fr;
+
+        input {
+          height: calc(1em + 16px);
+        }
+        .item-title {
+          padding-top: 8px;
+        }
+        .require-comment {
+          color: lighten(red, 15%);
+          grid-column: 1 / 3;
+        }
+      }
+      &.grid-container.additional-info {
+        .item-title {
+          padding-top: 0px;
+        }
+      }
+
+      // reaason
+      fieldset {
+        border: 1px solid $c2;
+        padding: .5em;
+        border-radius: 5px;
+
+        legend {
+          padding: 0 .3em;
+        }
+        label {
+          margin-right: .5em;
+          margin-bottom: .4em;
+          display: inline-block;
+          word-break: break-all;
+
+          &:last-of-type {
+            margin-right: 0;
+          }
+
+          input[type="checkbox"] {
+            margin-top: 0px; // checkboxの位置の調整
+          }
+        }
+
+        #reason-add-remove {
+          margin-top: .3em;
+
+          p {
+            display: grid;
+            grid-template-columns: 4.3em 1fr 4.5em/*3em*/;
+            color: #000;
+
+            label {
+              padding-top: 8px;
+            }
+            input[type="text"], input[type="button"] {
+              height: calc(1em + 16px);
+              padding-top: 3px;
+            }
+
+            &:nth-of-type(2) {
+              margin-top: .3em;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+#mss-body-regist {
+
+  form > button {
+    display: block;
+    font-size: $f8;
+    font-weight: bold;
+    color: #fff;
+    margin: 1em auto 0;
+    width: 5em/*4em*/;
+    height: auto;
+    line-height: 2;
+    border-radius: 1em;
+    border-color: darken($c1, 10%);
+    background-color: darken($c1, 5%);
+    //background: rgb(9,175,175);
+    background: linear-gradient(90deg, rgba(9,175,175,1) 0%, rgba(12,223,223,1) 100%);
+    text-shadow: 0 -1px darken($c1, 40%);
+    
+    &:focus {
+      outline: none;
+    }
+    &:active {
+      background-color: darken($c1, 5%);
+      //background: rgb(9,175,175);
+      background: linear-gradient(90deg, darken(rgba(9,175,175,1), 7%) 0%, darken(rgba(12,223,223,1), 7%) 100%);
+    }
+  }
+}
+
+#confirmRegistMessage {
+  margin-top: 1em;
+  text-align: center;
+  display: block;
+  width: 15em;
+  margin-left: auto;
+  margin-right: auto;
+
+  p {
+    color: #000;
+    text-align: center;
+  }
+  input[type="button"] {
+    height: calc(1em + 16px);
+    margin: .3em .3em .3em 0;
+    padding: 0 1em;
+  }
+}
+
+#mss-body-search {
+
+  form > .button-container {
+    display: flex;
+    justify-content: center;
+    
+    button {
+      display: block;
+      font-size: $f8;
+      font-weight: bold;
+      color: #fff;
+      margin-top: 1.5em;
+      height: auto;
+      line-height: 2;
+      border-radius: 1em;
+      border-color: darken($c1, 10%);
+      background-color: darken($c1, 5%);
+      //background: rgb(9,175,175);
+      background: linear-gradient(90deg, rgba(9,175,175,1) 0%, rgba(12,223,223,1) 100%);
+      text-shadow: 0 -1px darken($c1, 40%);
+
+      &:nth-of-type(1) {
+        width: 5em/*4em*/;
+        margin-right: 1em;
+      }
+      &:nth-of-type(2) {
+        width: 7em/*5em*/;
+      }
+      
+      &:focus {
+        outline: none;
+      }
+      &:active {
+        background-color: darken($c1, 5%);
+        //background: rgb(9,175,175);
+        background: linear-gradient(90deg, darken(rgba(9,175,175,1), 7%) 0%, darken(rgba(12,223,223,1), 7%) 100%);
+      }
+    }
+  }
+}
+
+#search-result {
+  margin-top: 1em;
+
+  h3 {
+    font-weight: normal;
+    padding: .1em .5em;
+  }
+}
+#table-container {
+  margin-top: .5em;
+  overflow-y: scroll;
+  height: auto;
+  max-height: 400px;
+  position: relative;
+  border-bottom: 1px solid darken($c1, 10%);
+  z-index: 3;
+}
+#result-table {
+  width: 100%;
+  height: auto;
+  background-color: #ffffff;
+  border-collapse: separate;
+  table-layout: fixed;
+
+  thead {
+    width: 100%;
+
+    tr th {
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      background-color: #fff;
+      border-top: 1px solid darken($c1, 10%);
+      border-bottom: 1px solid darken($c1, 10%);
+      background-color: lighten($c1, 20%);
+      padding: .3em;
+      line-height: 2;
+      font-weight: normal;
+      font-size: $f10;
+    }
+  }
+
+  tbody {
+    width: 100%;
+    position: relative;
+    z-index: 1;
+    cursor: pointer;
+
+    tr td {
+      border-bottom: 1px dashed darken($c1, 10%);
+      padding: .3em;
+      line-height: 1.2;
+      overflow-wrap: break-word;
+      z-index: 1;
+      font-size: $f10;
+      vertical-align: top;
+
+      ul li.card {
+        display: inline-block;
+        color: darken($c1, 20%);
+        border: 1px solid darken($c1, 10%);
+        background-color: lighten($c1, 45%);
+        opacity: .85;
+        margin-top: .1em;
+        margin-bottom: .1em;
+      }
+    }
+    tr:last-of-type td {
+      border-bottom: none;
+    }
+  }
+  th:nth-of-type(1), td:nth-of-type(1) {
+    width: 10%;
+    text-align: center;
+  }
+  th:nth-of-type(2), td:nth-of-type(2) {
+    width: 25%;
+    text-align: left;
+  }
+  th:nth-of-type(3), td:nth-of-type(3) {
+    width: 25%;
+    text-align: left;
+  }
+  th:nth-of-type(4), td:nth-of-type(4) {
+    max-width: 40%;
+    width: auto;
+    text-align: left;
+  }
+}
+
+// 選択時の色
+#result-tbody .selectSongResult {
+  background-color: lighten($c3, 25%);//#b5ecb7;
+}
+
+// 検索結果ゼロ
+#no-result td {
+  width: 100% !important;
+  text-align: center !important;
+}
+
+// Song detail
+#song-detail {
+  padding-top: 1em;
+  position: relative;
+
+  h3 {
+    font-weight: normal;
+    padding: .1em .5em;
+  }
+  button {
+    @include inputButton;
+
+    margin-top: -2px;
+    position: absolute;
+    top: 1em;
+    right: 0;
+  }
+}
+#detail-item-container {
+  width: 100%;
+  margin: 1em .5em;
+  padding-right: 1em;
+
+  div {
+    margin-top: 1em;
+
+    &:first-of-type {
+      margin-top: 0;
+    }
+
+    &.additional-item {
+      margin-top: .3em;
+    }
+    &.grid-row {
+      display: grid;
+      grid-template-columns: 5.5em 1fr;
+    }
+  }
+
+  dt {
+    font-size: $f9;
+    line-height: 1;
+
+    &.item-bold {
+      font-weight: bold;
+
+      span {
+        font-weight: normal;
+      }
+    }
+  }
+  dd {
+    word-break: break-all;
+    font-size: $f9;
+    line-height: 1;
+  }
+
+  #detail-url {
+    dt {
+      width: 100%;
+
+      span {
+        font-size: $f10;
+      }
+    }
+    dd {
+      display: inline-block;
+      border: 1px solid darken($c1, 10%);
+      background-color: lighten($c1, 45%);
+      transition: all .14s ease-out 0s;
+      padding: 0;
+      margin-top: .3em;
+
+      a {
+        display: inline-block;
+        width: 100%;
+        height: 100%;
+        color: darken($c1, 20%);
+        transition: all .14s ease-out 0s;
+        padding: .2em .5em;
+      }
+
+      &:hover {
+        border: 1px solid darken($c3, 10%);
+        background-color: lighten($c3, 45%);
+
+        a {
+          color: darken($c3, 10%);
+        }
+      }
+    }
+  }
+  #detail-note-div {
+    dt {
+      width: 100%;
+    }
+    dd {
+      width: 100%;
+      margin-top: .3em;
+    }
+  }
+  #detail-reason {
+    dt {
+      width: 100%;
+    }
+    dd {
+      display: inline-block;
+      color: darken($c1, 20%);
+      border: 1px solid darken($c1, 10%);
+      background-color: lighten($c1, 45%);
+      margin-top: .3em;
+    }
+  }
+
+}
+
+// Song edit
+#song-edit {
+  padding-top: 1em;
+  
+  h3 {
+    font-weight: normal;
+    padding: .1em .5em;
+  }
+  #edit-input-reason {
+    .comment {
+      font-size: $f10;
+    }
+  }
+
+  form {
+    & > button {
+      display: block;
+      font-size: $f8;
+      font-weight: bold;
+      color: #fff;
+      margin: 1em auto 0;
+      width: 9.5em /*8em*/;
+      height: auto;
+      line-height: 2;
+      border-radius: 1em;
+      border-color: darken($c1, 10%);
+      background-color: darken($c1, 5%);
+      //background: rgb(9,175,175);
+      background: linear-gradient(90deg, rgba(9,175,175,1) 0%, rgba(12,223,223,1) 100%);
+      text-shadow: 0 -1px darken($c1, 40%);
+
+      &:focus {
+        outline: none;
+      }
+      &:active {
+        background-color: darken($c1, 5%);
+        //background: rgb(9,175,175);
+        background: linear-gradient(90deg, darken(rgba(9,175,175,1), 7%) 0%, darken(rgba(12,223,223,1), 7%) 100%);
+      }
+    }
+    &#formSongRemove {
+      margin-top: 2em;
+      
+      & > button {
+        margin: 1em 0 1em auto;
+        font-size: $f9;
+      }
+
+      #confirmRemoveMessage {
+        text-align: center;
+        line-height: 1.5em;
+        padding-top: 1em;
+        padding-bottom: 1em;
+        border-top: 1px dashed darken($c1,10%);
+        border-bottom: 1px dashed darken($c1,10%);
+
+        p {
+          line-height: 1em;
+        }
+        input[type="button"] {
+          font-size: 1rem;
+          margin: 1em .2em 0;
+          padding: 0 1em;
+          height: calc(1em + 16px);
+        }
+      }
+    }
+  }
+}
+
+// move-button
+#move-button {
+  border: 1px solid $c4;
+  border-radius: 5px;
+  width: 2em;
+  height: auto;
+  position: fixed;
+  top: 50%;
+  right: 0;
+  z-index: 10;
+  overflow: hidden;
+  margin-right: 3px;
+
+  font-size: $f8;
+  font-weight: bold;
+
+  border-color: darken($c1, 10%);
+  background-color: darken($c1, 5%);
+  //background: rgb(9,175,175);
+  background: linear-gradient(90deg, rgba(9,175,175,1) 0%, rgba(12,223,223,1) 100%);
+
+  @media #{$mq-sp-plus} {
+    margin-right: calc((100% - #{$bp-sp}px) / 4 + 3px);
+  }
+  @media #{$mq-pc-plus1} {
+    margin-right: calc((#{$bp-pc}px - #{$bp-sp}px) / 4 + (100% - #{$bp-pc}px) / 2 + 3px);
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  a {
+    display: inline-block;
+    color: #fff;
+    width: 100%;
+    height: 2em;
+    line-height: 2em;
+    text-align: center;
+
+    &:hover, &:active {
+      background-color: darken($c1, 5%);
+      //background: rgb(9,175,175);
+      background: linear-gradient(90deg, darken(rgba(9,175,175,1), 7%) 0%, darken(rgba(12,223,223,1), 7%) 100%);
+    }
+  }
+  
+  hr {
+    margin: 0;
+    height: 0;
+  }
+}
