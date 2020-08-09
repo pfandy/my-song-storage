@@ -1,0 +1,83 @@
+html {
+  font-size: 16px;
+}
+h1 {
+  font-size: 2.441rem;
+}
+body {
+  background: #fff;
+}
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+header {
+  width: 100%;
+  height: auto;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  padding: .3em 0 .7em;
+  background: rgba(255, 255, 255, 0.9);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+header .logo {
+  font-weight: bold;
+  text-align: right;
+  letter-spacing: -4.3px;
+  color: #22d3d3;
+  padding-right: 10px;
+}
+@media screen and (min-width: 470px) {
+  header .logo {
+    padding-right: calc((100% - 450px) / 4 + 10px);
+  }
+}
+@media screen and (min-width: 1160px) {
+  header .logo {
+    padding-right: calc((1140px - 450px) / 4 + (100% - 1140px) / 2 + 10px);
+  }
+}
+main {
+  width: 100%;
+  height: auto;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  padding: 0 10px;
+  margin-bottom: calc(.8em + 20px + 10px);
+}
+@media screen and (min-width: 470px) {
+  main {
+    padding: 0 calc((100% - 450px) / 2 + 10px);
+  }
+}
+footer {
+  width: 100%;
+  height: auto;
+  padding: 10px 0;
+  background: #22d3d3;
+  background: -webkit-gradient(linear, left top, right top, from(#09afaf), color-stop(70%, #0cdfdf), to(#bcfbfb));
+  background: linear-gradient(90deg, #09afaf 0%, #0cdfdf 70%, #bcfbfb 100%);
+  position: fixed;
+  top: 100vh;
+  -webkit-transform: translateY(-100%);
+          transform: translateY(-100%);
+  z-index: 10;
+}
+footer #copyright {
+  font-size: 0.8rem;
+  text-align: center;
+  color: #fff;
+  letter-spacing: .4px;
+}
